@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./sass/custom.css">
+</head>
+
+<body>
+    <div class="container-fluid bg-light">
+
+        <nav class="navbar navbar-expand-md navbar-light bg-light border-3 border-bottom border-secondary">
+            <div class="container-fluid">
+                <span class="navbar-brand">
+                    PRICE
+                </span>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#MenuNavegacion">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="MenuNavegacion" class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link " href="./inicio.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="./historico.html">Valor Histórico</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./quienesSomos.html">Quienes Somos</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="precios container-lg bg-light">
+        <h1 class="h1 text-center p-4 ">Dólar Histórico</h1>
+        <label id="selectorDolar" class="d-inline fw-light">Seleccione el tipo de dolar:</label>
+        <div class="dropdown d-inline ">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                Seleccionar
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+              <li><a id="oficialHistorico" class="dropdown-item" href="#">Oficial</a></li>
+              <li><a id="blueHistorico" class="dropdown-item" href="#">Blue</a></li>
+              <li><a id="mepHistorico" class="dropdown-item" href="#">MEP</a></li>
+              <li><a id="turistaHistorico" class="dropdown-item" href="#">Turista</a></li>
+              <li><a id="mayoristaHistorico" class="dropdown-item" href="#">Mayorista</a></li>
+            </ul>
+          </div>
+          <label id="tipoDolarSeleccionado" class="d-flex fw-light"> </label>
+        <table id="tablaPrecios" class="table table-primary shadow-sm p-3 mb-5 bg-body rounded">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Precio Venta</th>
+                    <th>Precio Compra</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+
+
+        </table>
+
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">Price. 2021. Campos, Villarroel</p>
+        </div>
+    </footer>
+    <script src="./Historicos/JS/historico.js" type="module"></script>
+    
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+[   
+    {
+        "id":1,
+        "nombre":"Oficial",
+        "venta":98.70,
+        "compra":104.70
+    },
+    {
+        "id":2,
+        "nombre":"Blue",
+        "venta":183.50,
+        "compra":186.50
+    },
+    {
+        "id":3,
+        "nombre":"MEP",
+        "venta":180,
+        "compra":200
+    },
+    {
+        "id":4,
+        "nombre":"Turista",
+        "venta":180,
+        "compra":200
+    },
+    {
+        "id":5,
+        "nombre":"Mayorista",
+        "venta":180,
+        "compra":200
+    }
+]
