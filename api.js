@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res){
+router.use(express.static('public'));
+
+/*router.get('/', function(req, res){
    res.send('GET route on things.');
 });
 router.post('/', function(req, res){
@@ -12,7 +14,17 @@ router.put('/', function(req, res){
  });
  router.delete('/', function(req, res){
     res.send('DELETE route on things.');
- });
+ });*/
+
+ router.get('/inicio', function(req, res) {
+   res.sendFile(inicio);
+});
+router.get('/historico', function(req, res) {
+   res.sendFile(historico);
+});
+router.get('/quienesSomos', function(req, res) {
+   res.sendFile(quienesSomos);
+});
 
 //Prueba con parámetros
 router.get('/:name/:id', function(req, res) {

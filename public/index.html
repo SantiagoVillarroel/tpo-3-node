@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Price</title>
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
@@ -27,13 +27,13 @@
                 <div id="MenuNavegacion" class="collapse navbar-collapse">
                     <ul class="navbar-nav ms-3">
                         <li class="nav-item">
-                            <a class="nav-link " href="./inicio.html">Inicio</a>
+                            <a class="nav-link " href="./index.html">Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " href="./historico.html">Valor Histórico</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./quienesSomos.html">Quiénes Somos</a>
+                            <a class="nav-link" href="./quienesSomos.html">Quienes Somos</a>
                         </li>
                     </ul>
 
@@ -41,20 +41,31 @@
             </div>
         </nav>
     </div>
-    <div class="texto-quienes-somos">
-        Página dedicada a mostrar los precios de distintos tipos de dólar.
-        <br><br>
-        Proyecto de Laboratorio de Programación
-        <br><br>
-        Integrantes:<br>
-        -Carlos Campos<br>
-        -Santiago Villarroel
+    <div class="precios container-lg bg-light">
+        <h1 class="h1 text-center p-4 ">Valor del Dólar</h1>
+        <table id="tablaPrecios" class="table table-primary shadow-sm p-3 mb-5 bg-body rounded">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio Venta</th>
+                    <th>Precio Compra</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+
+
+        </table>
     </div>
     <footer class="footer">
         <div class="container">
             <p class="text-muted">Price. 2021. Campos, Villarroel</p>
         </div>
     </footer>
+    <script src="datos.js" type="module"></script>
+    <!--<script src="./datos.js" type="module"></script>-->
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
