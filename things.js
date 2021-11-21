@@ -21,7 +21,7 @@ router.get('/:name/:id', function(req, res) {
 
 //Si la url no es válida...
  router.get('*', function(req, res){
-    res.send('Sorry, this is an invalid URL.');
+    res.send('Error 404 - Sorry, this is an invalid URL.');
  });
 
 //export this router to use in our index.js
