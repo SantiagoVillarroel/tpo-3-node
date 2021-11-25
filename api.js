@@ -1,35 +1,22 @@
 var express = require('express');
 var router = express.Router();
 
-router.use(express.static('public'));
+const datosInicio =  require('./datos.json')
 
-/*router.get('/', function(req, res){
-   res.send('GET route on things.');
-});
-router.post('/', function(req, res){
-   res.send('POST route on things.');
-});
-router.put('/', function(req, res){
-    res.send('PUT route on things.');
- });
- router.delete('/', function(req, res){
-    res.send('DELETE route on things.');
- });*/
+const datosHistorico = [require('./historico_JSON/oficialHistorico.json'), require('./historico_JSON/blueHistorico.json'), 
+require('./historico_JSON/mepHistorico.json'), require('./historico_JSON/turistaHistorico.json'), 
+require('./historico_JSON/mayoristaHistorico.json')];
+
+//router.use(express.static('public'));
 
  router.get('/inicio', function(req, res) {
-   res.sendFile(inicio);
-});
-router.get('/historico', function(req, res) {
-   res.sendFile(historico);
-});
-router.get('/quienesSomos', function(req, res) {
-   res.sendFile(quienesSomos);
+   console.log(req.query);
+   res.send(datosInicio);
 });
 
-//Prueba con parámetros
-router.get('/:name/:id', function(req, res) {
-    res.send('id: ' + req.params.id + ' and name: ' + req.params.name);
- });
+router.get('/historico/:id', function(req, res){
+   res.send(datosHistorico[req.params.id]);
+});
 
 //Si la url no es válida...
  router.get('*', function(req, res){

@@ -5,7 +5,7 @@ inicio = __dirname + '/public/index.html';
 historico = __dirname + '/public/historico.html';
 quienesSomos = __dirname + '/public/quienesSomos.html';
 
-//app.use(express.static('public'));
+app.use(express.static('public'));
 
 //var public = path.join(__dirname, 'public');
 
@@ -15,5 +15,5 @@ app.use('/api', api);
 
 app.listen(3000);
 
-//Santi gato . probando commit desde la bitacora de charlie
+//Santi gato (charly gil). probando commit desde la bitacora de charlie
 //Comment de prueba PRUEBA CLONE
