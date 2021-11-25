@@ -1,9 +1,6 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-inicio = __dirname + '/public/index.html';
-historico = __dirname + '/public/historico.html';
-quienesSomos = __dirname + '/public/quienesSomos.html';
 
 app.use(express.static('public'));
 
