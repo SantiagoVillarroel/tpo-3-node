@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var path = require('path');
+//var path = require('path');
 
 app.use(express.static('public'));
 
@@ -10,7 +10,10 @@ var api = require('./api.js');
 
 app.use('/api', api);
 
-app.listen(3000);
+const port = process.env.PORT || 3000;
 
-//Santi gato (charly gil). probando commit desde la bitacora de charlie
+app.listen(port);
+
 //Comment de prueba PRUEBA CLONE
+
+//const y let, no var - variable de entorno nro de puerto

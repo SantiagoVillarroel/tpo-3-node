@@ -11,28 +11,30 @@ require('./historico_JSON/mayoristaHistorico.json')];
 
  router.get('/inicio', function(req, res) {
    //console.log(req.query);
-   res.send(datosInicio);
+   res.send(datosInicio);//cambiar nombre de route
 });
 
 router.post('/inicio/:id/:nombre/:venta/:compra', function(req, res) {
-   res.send();
+   //req.body o payload
    datosInicio.push({
       "id":req.params.id,
       "nombre":req.params.nombre,
       "compra":req.params.compra,
       "venta":req.params.venta
-   });
+   }); //Retornar lo creado - almacenar fecha de guardado
 });
 
 router.put('/inicio', function(req, res) {
    res.send();
 });
 
-/*router.get('/historico/:id', function(req, res){
+router.get('/dolares', function(req, res){
+   //dolares?tipo=blue&cantidad=10&desde=0
+   //librerias para validar - joi
    const cantidad=req.query.cantidad;
    const desde=req.query.desde;
    res.send((datosHistorico[req.params.id]).slice[desde, desde+cantidad]);
-});*/
+});
 
 router.get('/historico/:id', function(req, res){
    res.send(datosHistorico[req.params.id]);
