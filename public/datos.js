@@ -3,7 +3,7 @@ const tabla=document.querySelector("#tablaPrecios tbody");
 
 
 function getDatos(){
-    fetch('http://localhost:3000/api/inicio')
+    fetch('http://localhost:3000/api/ValorTiposDeDolarHoy')
     .then(respuesta => respuesta.json()) //indicamos el formato en el que se desea obtener la informacion
     .then(objeto =>
         objeto.forEach(dolar=>{

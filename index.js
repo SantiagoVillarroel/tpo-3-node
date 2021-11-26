@@ -12,7 +12,7 @@ app.use('/api', api);
 
 const port = process.env.PORT || 3000;
 
-app.listen(port);
+app.listen(port,()=>console.log("Server on Port ",port));
 
 //Comment de prueba PRUEBA CLONE
 

@@ -8,7 +8,7 @@ function limpiarTabla(){
 }
 
 function getDatos(index){
-    fetch('http://localhost:3000/api/historico/'+index)
+    fetch('http://localhost:3000/api/ValoresHistoricosDolar/'+index)
     .then(respuesta => respuesta.json()) //indicamos el formato en el que se desea obtener la informacion
     .then(objeto => {
        // document.querySelector("#tablaPrecios tr").remove();
