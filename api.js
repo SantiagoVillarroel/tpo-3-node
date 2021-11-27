@@ -3,15 +3,6 @@ var express = require('express');
 var router = express.Router();
 
 const datosInicio =  require('./datos.json')
-/*
-const datosHistorico = [
-   require('./historico_JSON/oficialHistorico.json'), 
-   require('./historico_JSON/blueHistorico.json'), 
-   require('./historico_JSON/mepHistorico.json'), 
-   require('./historico_JSON/turistaHistorico.json'), 
-   require('./historico_JSON/mayoristaHistorico.json')
-];
-*/
 
 const indiceDeTiposDeDolarValorHistorico= require('./historico_JSON/indiceValoresHistoricosTipoDolar.json');
 
@@ -22,13 +13,15 @@ const indiceDeTiposDeDolarValorHistorico= require('./historico_JSON/indiceValore
 
 router.post('/ValorTiposDeDolarHoy/:id/:nombre/:venta/:compra', function(req, res) {
    //req.body o payload
-
-   datosInicio.push({
-      "id":req.params.id,
-      "nombre":req.params.nombre,
-      "compra":req.params.compra,
-      "venta":req.params.venta
-   }); //Retornar lo creado - almacenar fecha de guardado
+   const {id, nombre, venta, compra} = req.body;
+   let objeto = {
+      "id":id,
+      "nombre":nombre,
+      "compra":compra,
+      "venta":venta
+   };
+   datosInicio.push(objeto); //Retornar lo creado - almacenar fecha de guardado
+   res.send(objeto);
 });
 
 router.put('/ValorTiposDeDolarHoy', function(req, res) {
@@ -46,13 +39,6 @@ router.get('/ValoresHistoricosDolar', function(req, res){
 router.get('/ValoresHistoricosDolar/:NombreTipoDeDolar', function(req, res){
    let nombreArchivoHistorico;
    let tipo;
-   /*indiceDeTiposDeDolarValorHistorico.forEach(element => {
-      console.log(element.tipoDolar);
-      console.log(req.params.NombreTipoDeDolar)
-      if(element.tipoDolar === req.params.NombreTipoDeDolar){
-          nombreArchivoHistorico=element.nombreArchivo;
-      } 
-    });*/
    tipo = indiceDeTiposDeDolarValorHistorico.find(element => {
       return element.tipoDolar === req.params.NombreTipoDeDolar;
     });
