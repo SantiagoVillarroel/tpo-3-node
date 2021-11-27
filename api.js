@@ -45,25 +45,18 @@ router.get('/ValoresHistoricosDolar', function(req, res){
 
 router.get('/ValoresHistoricosDolar/:NombreTipoDeDolar', function(req, res){
    let nombreArchivoHistorico;
-   indiceDeTiposDeDolarValorHistorico.forEach(element => {
+   let tipo;
+   /*indiceDeTiposDeDolarValorHistorico.forEach(element => {
       console.log(element.tipoDolar);
       console.log(req.params.NombreTipoDeDolar)
       if(element.tipoDolar === req.params.NombreTipoDeDolar){
           nombreArchivoHistorico=element.nombreArchivo;
       } 
+    });*/
+   tipo = indiceDeTiposDeDolarValorHistorico.find(element => {
+      return element.tipoDolar === req.params.NombreTipoDeDolar;
     });
-   //console.log(nombreArchivoHistorico);
-   /*fetch(indiceDeTiposDeDolarValorHistorico)
-   .then(respuesta => respuesta.json)
-   .then(objeto =>
-      objeto.forEach(element => {
-        if(element.tipoDolar == req.params.NombreTipoDeDolar){
-            nombreArchivoHistorico=element.nombreArchivo;
-        } 
-      })
-      
-      )*/
-
+   nombreArchivoHistorico = tipo.nombreArchivo;
    res.send(require('./historico_JSON/'+nombreArchivoHistorico));
 });
 
