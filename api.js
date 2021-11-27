@@ -15,15 +15,14 @@ const datosHistorico = [
 
 const indiceDeTiposDeDolarValorHistorico= require('./historico_JSON/indiceValoresHistoricosTipoDolar.json');
 
-//router.use(express.static('public'));
-
  router.get('/ValorTiposDeDolarHoy', function(req, res) {
    //console.log(req.query);
-   res.send(datosInicio);//cambiar nombre de route
+   res.send(datosInicio);
 });
 
-router.post('/inicio/:id/:nombre/:venta/:compra', function(req, res) {
+router.post('/ValorTiposDeDolarHoy/:id/:nombre/:venta/:compra', function(req, res) {
    //req.body o payload
+
    datosInicio.push({
       "id":req.params.id,
       "nombre":req.params.nombre,
@@ -32,11 +31,11 @@ router.post('/inicio/:id/:nombre/:venta/:compra', function(req, res) {
    }); //Retornar lo creado - almacenar fecha de guardado
 });
 
-router.put('/inicio', function(req, res) {
+router.put('/ValorTiposDeDolarHoy', function(req, res) {
    res.send();
 });
 
-router.get('/dolares', function(req, res){
+router.get('/ValoresHistoricosDolar', function(req, res){
    //dolares?tipo=blue&cantidad=10&desde=0
    //librerias para validar - joi
    const cantidad=req.query.cantidad;
@@ -45,9 +44,16 @@ router.get('/dolares', function(req, res){
 });
 
 router.get('/ValoresHistoricosDolar/:NombreTipoDeDolar', function(req, res){
-   //console.log('ssss');
    let nombreArchivoHistorico;
-   fetch(indiceDeTiposDeDolarValorHistorico)
+   indiceDeTiposDeDolarValorHistorico.forEach(element => {
+      console.log(element.tipoDolar);
+      console.log(req.params.NombreTipoDeDolar)
+      if(element.tipoDolar === req.params.NombreTipoDeDolar){
+          nombreArchivoHistorico=element.nombreArchivo;
+      } 
+    });
+   //console.log(nombreArchivoHistorico);
+   /*fetch(indiceDeTiposDeDolarValorHistorico)
    .then(respuesta => respuesta.json)
    .then(objeto =>
       objeto.forEach(element => {
@@ -56,11 +62,13 @@ router.get('/ValoresHistoricosDolar/:NombreTipoDeDolar', function(req, res){
         } 
       })
       
-      )
+      )*/
 
-   res.send(request('./historicos_JSON/',nombreArchivoHistorico,'.json'));
+   res.send(require('./historico_JSON/'+nombreArchivoHistorico));
 });
+
 //req.params.id
+
 //Si la url no es válida...
  router.get('*', function(req, res){
     res.send('Error 404 - Sorry, this is an invalid URL.');
