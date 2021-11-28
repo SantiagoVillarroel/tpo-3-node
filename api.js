@@ -7,34 +7,48 @@ var bodyParser = require('body-parser')
 // create application/json parser
 var jsonParser = bodyParser.json()
  
-// create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+//var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 const datosInicio =  require('./datos.json')
 
 const indiceDeTiposDeDolarValorHistorico= require('./historico_JSON/indiceValoresHistoricosTipoDolar.json');
 
  router.get('/ValorTiposDeDolarHoy', function(req, res) {
-   //console.log(req.query);
    res.send(datosInicio);
 });
 
 router.post('/ValorTiposDeDolarHoy', jsonParser, (req, res) => {
-   //req.body o payload
    console.log(req.body);
    const {id, nombre, venta, compra} = req.body;
-   let objeto = {
-      "id":id,
-      "nombre":nombre,
-      "compra":compra,
-      "venta":venta
-   };
-   datosInicio.push(objeto); //Retornar lo creado - almacenar fecha de guardado
-   res.send(objeto);
+   if(!isNaN(id) && typeof(nombre)==='string' && !isNaN(venta) && !isNaN(compra) && venta>=0 && compra>=0){
+      let objeto = {
+         "id":id,
+         "nombre":nombre,
+         "compra":compra,
+         "venta":venta
+      };
+      datosInicio.push(objeto); //Retornar lo creado - almacenar fecha de guardado
+      res.send(objeto);
+   }else{
+      res.sendStatus(400);
+   }
 });
 
 router.put('/ValorTiposDeDolarHoy', function(req, res) {
-   res.send();
+   const {id, nombre, venta, compra} = req.body;
+   if(!isNaN(id) && typeof(nombre)==='string' && !isNaN(venta) && !isNaN(compra) && venta>=0 && compra>=0){
+      const indiceEncontrado = datosInicio.findIndex(elem => elem.id===id);
+      if(!isNaN(indiceEncontrado)){
+         datosInicio[indiceEncontrado].nombre=nombre;
+         datosInicio[indiceEncontrado].compra=compra;
+         datosInicio[indiceEncontrado].venta=venta;
+         res.send(datosInicio[indiceEncontrado]);
+      }else{
+         res.sendStatus(400);
+      }
+   }else{
+      res.sendStatus(400);
+   }
 });
 
 router.get('/ValoresHistoricosDolar', function(req, res){
