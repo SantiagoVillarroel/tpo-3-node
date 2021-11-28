@@ -2,6 +2,8 @@ const { request } = require('express');
 var express = require('express');
 var router = express.Router();
 
+let clase = require('./clase.js');
+
 var bodyParser = require('body-parser')
  
 // create application/json parser
@@ -14,21 +16,15 @@ const datosInicio =  require('./datos.json')
 const indiceDeTiposDeDolarValorHistorico= require('./historico_JSON/indiceValoresHistoricosTipoDolar.json');
 
  router.get('/ValorTiposDeDolarHoy', function(req, res) {
-   res.send(datosInicio);
+   res.send(clase.obtenerDatosInicio());
+   clase.prueba();
 });
 
 router.post('/ValorTiposDeDolarHoy', jsonParser, (req, res) => {
    console.log(req.body);
    const {id, nombre, venta, compra} = req.body;
    if(!isNaN(id) && typeof(nombre)==='string' && !isNaN(venta) && !isNaN(compra) && venta>=0 && compra>=0){
-      let objeto = {
-         "id":id,
-         "nombre":nombre,
-         "compra":compra,
-         "venta":venta
-      };
-      datosInicio.push(objeto); //Retornar lo creado - almacenar fecha de guardado
-      res.send(objeto);
+      res.send(clase.crearDatoInicio(id, nombre, venta, compra));
    }else{
       res.sendStatus(400);
    }
@@ -37,12 +33,9 @@ router.post('/ValorTiposDeDolarHoy', jsonParser, (req, res) => {
 router.put('/ValorTiposDeDolarHoy', function(req, res) {
    const {id, nombre, venta, compra} = req.body;
    if(!isNaN(id) && typeof(nombre)==='string' && !isNaN(venta) && !isNaN(compra) && venta>=0 && compra>=0){
-      const indiceEncontrado = datosInicio.findIndex(elem => elem.id===id);
-      if(!isNaN(indiceEncontrado)){
-         datosInicio[indiceEncontrado].nombre=nombre;
-         datosInicio[indiceEncontrado].compra=compra;
-         datosInicio[indiceEncontrado].venta=venta;
-         res.send(datosInicio[indiceEncontrado]);
+      let obj = clase.actualizarDatoInicio(id, nombre, venta, compra);
+      if(obj != null){
+         res.send(obj);
       }else{
          res.sendStatus(400);
       }
@@ -60,21 +53,17 @@ router.get('/ValoresHistoricosDolar', function(req, res){
 });
 
 router.get('/ValoresHistoricosDolar/:NombreTipoDeDolar', function(req, res){
-   let nombreArchivoHistorico;
-   let tipo;
-   tipo = indiceDeTiposDeDolarValorHistorico.find(element => {
-      return element.tipoDolar === req.params.NombreTipoDeDolar;
-    });
-   nombreArchivoHistorico = tipo.nombreArchivo;
-   res.send(require('./historico_JSON/'+nombreArchivoHistorico));
+   let nombre = req.params.NombreTipoDeDolar;
+   if(typeof(nombre) === 'string'){
+      res.send(clase.obtenerNombreArchivoHistorico(nombre));
+   }else{
+      res.sendStatus(400);
+   }
 });
-
-//req.params.id
 
 //Si la url no es válida...
  router.get('*', function(req, res){
     res.send('Error 404 - Sorry, this is an invalid URL.');
  });
 
-//export this router to use in our index.js
 module.exports = router;
