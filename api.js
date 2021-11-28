@@ -2,6 +2,14 @@ const { request } = require('express');
 var express = require('express');
 var router = express.Router();
 
+var bodyParser = require('body-parser')
+ 
+// create application/json parser
+var jsonParser = bodyParser.json()
+ 
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 const datosInicio =  require('./datos.json')
 
 const indiceDeTiposDeDolarValorHistorico= require('./historico_JSON/indiceValoresHistoricosTipoDolar.json');
@@ -11,8 +19,9 @@ const indiceDeTiposDeDolarValorHistorico= require('./historico_JSON/indiceValore
    res.send(datosInicio);
 });
 
-router.post('/ValorTiposDeDolarHoy/:id/:nombre/:venta/:compra', function(req, res) {
+router.post('/ValorTiposDeDolarHoy', jsonParser, (req, res) => {
    //req.body o payload
+   console.log(req.body);
    const {id, nombre, venta, compra} = req.body;
    let objeto = {
       "id":id,
