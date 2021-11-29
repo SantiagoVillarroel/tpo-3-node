@@ -42,11 +42,35 @@ router.get('/ValoresHistoricosDolar', function(req, res){
    const tipo = req.query.tipo;
    const cantidad=req.query.cantidad;
    const desde=req.query.desde;
-   res.send(manipulacionDatos.obtenerHistoricoCantidadDesde(tipo, cantidad, desde));
+   if(typeof(tipo)==='string' && !isNaN(cantidad) && !isNaN(desde)){
+      res.send(manipulacionDatos.obtenerHistoricoCantidadDesde(tipo, cantidad, desde));
+   }else{
+      res.sendStatus(400);
+   }
 });
 
-router.get('/ValoresHistoricosDolar/:NombreTipoDeDolar', function(req, res){
-   let nombre = req.params.NombreTipoDeDolar;
+router.get('/ValoresHistoricosDolar/:nombreTipoDeDolar/:id', function(req, res){
+   let nombre = req.params.nombreTipoDeDolar;
+   let id = req.params.id;
+   if(typeof(nombre) === 'string' && !isNaN(id)){
+      res.send(manipulacionDatos.obtenerDatoHistoricoConId(nombre, id));
+   }else{
+      res.sendStatus(400);
+   }
+});
+
+router.get('/ValoresHistoricosDolar/:nombreTipoDeDolar/:fecha', function(req, res){
+   let nombre = req.params.nombreTipoDeDolar;
+   let fecha = req.params.fecha;
+   if(typeof(nombre) === 'string' && typeof(fecha) === 'string'){
+      res.send(manipulacionDatos.obtenerDatoHistoricoConFecha(nombre, fecha));
+   }else{
+      res.sendStatus(400);
+   }
+});
+
+router.get('/ValoresHistoricosDolar/:nombreTipoDeDolar', function(req, res){
+   let nombre = req.params.nombreTipoDeDolar;
    if(typeof(nombre) === 'string'){
       res.send(manipulacionDatos.obtenerArchivoHistorico(nombre));
    }else{

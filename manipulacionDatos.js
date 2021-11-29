@@ -48,3 +48,15 @@ exports.obtenerHistoricoCantidadDesde = function obtenerHistoricoCantidadDesde(t
     const archivoHistorico = obtenerArchivoHistorico(tipo);
     return archivoHistorico.slice[desde, desde+cantidad];
 }
+
+exports.obtenerDatoHistoricoConId = function obtenerDatoHistoricoConId(tipo, id){
+    const archivoHistorico = obtenerArchivoHistorico(tipo);
+    let dato = archivoHistorico.find(elem => elem.id===id);
+    return dato;
+}
+
+exports.obtenerDatoHistoricoConFecha = function obtenerDatoHistoricoConFecha(tipo, id){
+    const archivoHistorico = obtenerArchivoHistorico(tipo);
+    let dato = archivoHistorico.find(elem => elem.fecha===fecha);
+    return dato;
+}
