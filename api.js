@@ -1,12 +1,12 @@
 const { request } = require('express');
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
 let manipulacionDatos = require('./manipulacionDatos.js');
 
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 
-var jsonParser = bodyParser.json()
+var jsonParser = bodyParser.json();
 
  router.get('/ValorTiposDeDolarHoy', function(req, res) {
    res.send(manipulacionDatos.obtenerDatosPaginaInicio());
@@ -80,7 +80,8 @@ router.get('/ValoresHistoricosDolar/:nombreTipoDeDolar', function(req, res){
 
 //Si la url no es válida...
  router.get('*', function(req, res){
-    res.send('Error 404 - Sorry, this is an invalid URL.');
+    //res.send('Error 404 - Sorry, this is an invalid URL.');
+    res.sendStatus(400);
  });
 
 module.exports = router;
