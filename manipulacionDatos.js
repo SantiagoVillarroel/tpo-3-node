@@ -44,9 +44,18 @@ exports.obtenerArchivoHistorico = function obtenerArchivoHistorico(nombreDeTipoD
     return require('./historico_JSON/'+nombreArchivoHistorico);
 }
 
+function obtenerArchivoHistorico(nombreDeTipoDolar){
+    //Busco tipo de dólar en indice
+    let tipo = indiceDeTiposDeDolarValorHistorico.find(element => {
+       return element.tipoDolar === nombreDeTipoDolar;
+     });
+    nombreArchivoHistorico = tipo.nombreArchivo; //Obtengo nombre del archivo JSON correspondiente al tipo de dólar
+    return require('./historico_JSON/'+nombreArchivoHistorico);
+}
+
 exports.obtenerHistoricoCantidadDesde = function obtenerHistoricoCantidadDesde(tipo, cantidad, desde){
     const archivoHistorico = obtenerArchivoHistorico(tipo);
-    return archivoHistorico.slice[desde, desde+cantidad];
+    return archivoHistorico.slice(desde, parseInt(desde)+parseInt(cantidad));
 }
 
 exports.obtenerDatoHistoricoConId = function obtenerDatoHistoricoConId(tipo, id){

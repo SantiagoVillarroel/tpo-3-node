@@ -19,7 +19,7 @@ router.post('/ValorTiposDeDolarHoy', jsonParser, (req, res) => {
    if(!isNaN(id) && typeof(nombre)==='string' && !isNaN(venta) && !isNaN(compra) && venta>=0 && compra>=0){
       res.send(manipulacionDatos.crearDatoPaginaInicio(id, nombre, venta, compra));
    }else{
-      res.sendStatus(400);
+      res.status(400).send('Los datos no son correctos');
    }
 });
 
