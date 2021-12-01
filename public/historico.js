@@ -1,6 +1,6 @@
-const ids = ['oficialHistorico', 'blueHistorico', 'mepHistorico', 'turistaHistorico', 'mayoristaHistorico'];
-const ids2 = ['oficial', 'blue', 'mep', 'turista', 'mayorista'];
-const tipos = ['Oficial', 'Blue', 'MEP', 'Turista', 'Mayorista'];
+const ids = ['oficialHistorico', 'blueHistorico', 'mepHistorico', 'turistaHistorico', 'mayoristaHistorico'];//ids de la etiquetas en el html
+const nombreTipoDolar = ['oficial', 'blue', 'mep', 'turista', 'mayorista'];
+const tipos = ['Oficial', 'Blue', 'MEP', 'Turista', 'Mayorista'];//nombre del dolar que estamos mostrando en pantalla (label dinamico)
 
 const tabla=document.querySelector("#tablaPrecios tbody");
 
@@ -8,8 +8,8 @@ function limpiarTabla(){
     tabla.innerHTML="";
 }
 
-function getDatos(id){
-    fetch('http://localhost:3000/api/ValoresHistoricosDolar/'+id)
+function getDatos(nombreTipoDolarRequerido){
+    fetch('http://localhost:3000/api/ValoresHistoricosDolar/'+nombreTipoDolarRequerido)
     .then(respuesta => respuesta.json()) //indicamos el formato en el que se desea obtener la informacion
     .then(objeto => 
         objeto.forEach(dolar=>{
@@ -30,7 +30,7 @@ function getDatos(id){
 ids.forEach(function callback(valorActual, indice){
     document.getElementById(ids[indice]).onclick = function(){
         limpiarTabla();
-        getDatos(ids2[indice]);
+        getDatos(nombreTipoDolar[indice]);
         document.getElementById('tipoDolarSeleccionado').innerHTML=tipos[indice]; 
     }
 })
