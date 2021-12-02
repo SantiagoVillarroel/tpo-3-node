@@ -3,6 +3,7 @@ let express = require('express');
 let router = express.Router();
 
 let manipulacionDatos = require('./manipulacionDatos.js');
+const nombreTipoDolar = ['oficial', 'blue', 'mep', 'turista', 'mayorista'];
 
 var bodyParser = require('body-parser');
 
@@ -71,10 +72,11 @@ router.get('/ValoresHistoricosDolar/:nombreTipoDeDolar/:fecha', function(req, re
 
 router.get('/ValoresHistoricosDolar/:nombreTipoDeDolar', function(req, res){
    let nombre = req.params.nombreTipoDeDolar;
-   if(typeof(nombre) === 'string'){
+   if(typeof(nombre) === 'string' && nombreTipoDolar.find(element => element===nombre) ){
       res.send(manipulacionDatos.obtenerArchivoHistorico(nombre));
    }else{
       res.sendStatus(400);
+      console.log('hola');
    }
 });
 
