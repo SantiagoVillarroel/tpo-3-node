@@ -31,7 +31,7 @@ router.put('/ValorTiposDeDolarHoy', jsonParser, function(req, res) {
       if(obj != null){
          res.send(obj);
       }else{
-         res.sendStatus(400);
+         res.sendStatus(404);
       }
    }else{
       res.sendStatus(400);
@@ -39,6 +39,7 @@ router.put('/ValorTiposDeDolarHoy', jsonParser, function(req, res) {
 });
 
 router.get('/ValoresHistoricosDolar', function(req, res){
+   //Ruta no empieza con mayus
    //librerias para validar - joi
    const tipo = req.query.tipo;
    const cantidad=req.query.cantidad;
