@@ -77,9 +77,19 @@ router.get('/ValoresHistoricosDolar/:nombreTipoDeDolar', function(req, res){
       res.send(manipulacionDatos.obtenerArchivoHistorico(nombre));
    }else{
       res.sendStatus(400);
-      console.log('hola');
    }
 });
+
+router.get('/valoresHistoricosDolar/pag/:nombreTipoDeDolar/:numeroPagina/:cantidadEntradas', function(req, res){
+   let nombre = req.params.nombreTipoDeDolar;
+   let numeroPag = req.params.numeroPagina;
+   let cantEntradas = req.params.cantidadEntradas;
+   if(typeof(nombre) === 'string' && !NaN(numeroPag)  && !NaN(cantEntradas) && nombreTipoDolar.find(element => element===nombre) ){
+      res.send(manipulacionDatos.obtenerHistoricoCantidadDesde(nombre, cantEntradas, (numeroPag-1)*cantEntradas));
+   }else{
+      res.sendStatus(400);
+   }
+})
 
 //Si la url no es válida...
  router.get('*', function(req, res){
