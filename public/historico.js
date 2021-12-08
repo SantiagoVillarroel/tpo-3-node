@@ -35,4 +35,3 @@ ids.forEach(function callback(valorActual, indice){
     }
 })
 
-export {nombreTipoDolar};

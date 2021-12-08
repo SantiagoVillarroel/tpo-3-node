@@ -2,11 +2,11 @@ var express = require('express');
 var app = express();
 
   
-//var path = require('path');
+
 
 app.use(express.static('public'));
 
-//var public = path.join(__dirname, 'public');
+
 
 var api = require('./api.js');
 
