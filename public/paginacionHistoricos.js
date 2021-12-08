@@ -7,7 +7,7 @@ function paginacion(){
     const cantPaginas=totalDatos/cantFilasAMostrar;
     for(let i=0;i<cantPaginas;i++){
         const item=document.createElement('li');
-        
+        item.innerHTML=`<a>$${dolar.fecha}</a>`;
     }
     
 }
