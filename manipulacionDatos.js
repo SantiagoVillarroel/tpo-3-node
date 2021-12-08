@@ -16,6 +16,7 @@ function crearDatoPaginaInicio(id, nombre, venta, compra){
         "venta":venta
      };
      datosPaginaInicio.push(objeto); //almacenar fecha de guardado?
+     console.log(datosPaginaInicio);
      return objeto; //Devuelve objeto para res.send() en api
 }
 
