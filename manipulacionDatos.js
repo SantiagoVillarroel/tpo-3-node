@@ -45,15 +45,6 @@ function actualizarDatoPaginaInicio(id, nombre, venta, compra){
     return require('./historico_JSON/'+nombreArchivoHistorico);
 }
 
-function obtenerArchivoHistorico(nombreDeTipoDolar){
-    //Busco tipo de dólar en indice
-    let tipo = indiceDeTiposDeDolarValorHistorico.find(element => {
-       return element.tipoDolar === nombreDeTipoDolar;
-     });
-    nombreArchivoHistorico = tipo.nombreArchivo; //Obtengo nombre del archivo JSON correspondiente al tipo de dólar
-    return require('./historico_JSON/'+nombreArchivoHistorico);
-}
-
 function obtenerHistoricoCantidadDesde(tipo, cantidad, desde){
     const archivoHistorico = obtenerArchivoHistorico(tipo);
     return archivoHistorico.slice(desde, parseInt(desde)+parseInt(cantidad));
@@ -71,12 +62,18 @@ function obtenerDatoHistoricoConFecha(tipo, id){
     return dato;
 }
 
+function obtenerCantidadPaginasTipoDolar(tipo, cantidadEntradasPorPagina){
+    const archivoHistorico = obtenerArchivoHistorico(tipo);
+    return ((Object.keys(archivoHistorico).length) / cantidadEntradasPorPagina)+1;
+}
+
 module.exports={
-    "obtenerDatosPaginaInicio": obtenerDatosPaginaInicio,
-    "crearDatoPaginaInicio": crearDatoPaginaInicio,
-    "actualizarDatoPaginaInicio": actualizarDatoPaginaInicio,
-    "obtenerArchivoHistorico": obtenerArchivoHistorico,
-    "obtenerHistoricoCantidadDesde": obtenerHistoricoCantidadDesde,
-    "obtenerDatoHistoricoConId": obtenerDatoHistoricoConId,
-    "obtenerDatoHistoricoConFecha": obtenerDatoHistoricoConFecha  
+    obtenerDatosPaginaInicio,
+    crearDatoPaginaInicio,
+    actualizarDatoPaginaInicio,
+    obtenerArchivoHistorico,
+    obtenerHistoricoCantidadDesde,
+    obtenerDatoHistoricoConId,
+    obtenerDatoHistoricoConFecha,
+    obtenerCantidadPaginasTipoDolar
 }
