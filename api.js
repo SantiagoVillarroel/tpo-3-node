@@ -80,15 +80,23 @@ router.get('/ValoresHistoricosDolar/:nombreTipoDeDolar', function(req, res){
    }
 });
 
-router.get('/valoresHistoricosDolar/pag/:nombreTipoDeDolar/:numeroPagina/:cantidadEntradas', function(req, res){
+router.get('/valoresHistoricosDolar/paginacion/:nombreTipoDeDolar/:numeroPagina/:cantidadEntradas', function(req, res){
    let nombre = req.params.nombreTipoDeDolar;
    let numeroPag = req.params.numeroPagina;
    let cantEntradas = req.params.cantidadEntradas;
-   if(typeof(nombre) === 'string' && !NaN(numeroPag)  && !NaN(cantEntradas) && nombreTipoDolar.find(element => element===nombre) ){
+   if(typeof(nombre) === 'string' && !isNaN(numeroPag)  && !isNaN(cantEntradas) && nombreTipoDolar.find(element => element===nombre) ){
       res.send(manipulacionDatos.obtenerHistoricoCantidadDesde(nombre, cantEntradas, (numeroPag-1)*cantEntradas));
    }else{
       res.sendStatus(400);
    }
+})
+
+router.get('/cantidadDatosHistoricosParaUnTipoDolar/:tipoDolar/:cantidadEntradas', function(req,res){
+   let tipoDolar= req.params.tipoDolar;
+   let cantEntradas= req.params.cantidadEntradas;
+   let resp=manipulacionDatos.obtenerCantidadPaginasTipoDolar(tipoDolar,cantEntradas);
+   console.log("api: "+resp);
+   res.send([{"cantidadPaginas":resp}]);
 })
 
 //Si la url no es válida...

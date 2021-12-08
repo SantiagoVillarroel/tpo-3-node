@@ -2,14 +2,17 @@ const ids = ['oficialHistorico', 'blueHistorico', 'mepHistorico', 'turistaHistor
 const nombreTipoDolar = ['oficial', 'blue', 'mep', 'turista', 'mayorista'];
 const tipos = ['Oficial', 'Blue', 'MEP', 'Turista', 'Mayorista'];//nombre del dolar que estamos mostrando en pantalla (label dinamico)
 
-const pag= require('./public/paginacionHistoricos');
+
 
 const tabla=document.querySelector("#tablaPrecios tbody");
 
 function limpiarTabla(){
     tabla.innerHTML="";
 }
-
+function limpiarListaPaginas(){
+    document.querySelector("#listaPaginas").innerHTML="";
+}
+/*
 function getDatos(nombreTipoDolarRequerido){
     fetch('http://localhost:3000/api/ValoresHistoricosDolar/'+nombreTipoDolarRequerido)
     .then(respuesta => respuesta.json()) //indicamos el formato en el que se desea obtener la informacion
@@ -28,13 +31,15 @@ function getDatos(nombreTipoDolarRequerido){
         })
     );
 }
-
+*/
 ids.forEach(function callback(valorActual, indice){
     document.getElementById(ids[indice]).onclick = function(){
         limpiarTabla();
-        getDatos(nombreTipoDolar[indice]);
+        limpiarListaPaginas();
+        getDatos(nombreTipoDolar[indice],1,10);
         document.getElementById('tipoDolarSeleccionado').innerHTML=tipos[indice]; 
-        pag.paginacion();
+        paginacion(nombreTipoDolar[indice]);
+       
     }
 })
 
