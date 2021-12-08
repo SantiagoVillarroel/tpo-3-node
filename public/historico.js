@@ -2,6 +2,8 @@ const ids = ['oficialHistorico', 'blueHistorico', 'mepHistorico', 'turistaHistor
 const nombreTipoDolar = ['oficial', 'blue', 'mep', 'turista', 'mayorista'];
 const tipos = ['Oficial', 'Blue', 'MEP', 'Turista', 'Mayorista'];//nombre del dolar que estamos mostrando en pantalla (label dinamico)
 
+const pag= require('./public/paginacionHistoricos');
+
 const tabla=document.querySelector("#tablaPrecios tbody");
 
 function limpiarTabla(){
@@ -32,6 +34,7 @@ ids.forEach(function callback(valorActual, indice){
         limpiarTabla();
         getDatos(nombreTipoDolar[indice]);
         document.getElementById('tipoDolarSeleccionado').innerHTML=tipos[indice]; 
+        pag.paginacion();
     }
 })
 

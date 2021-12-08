@@ -1,5 +1,5 @@
 
-const driver=document.querySelector("#paginacion");
+const driver=document.querySelector("#listaPaginas");
 
 function paginacion(){
     const cantFilasAMostrar=10;
@@ -7,7 +7,10 @@ function paginacion(){
     const cantPaginas=totalDatos/cantFilasAMostrar;
     for(let i=0;i<cantPaginas;i++){
         const item=document.createElement('li');
-        item.innerHTML=`<a>$${dolar.fecha}</a>`;
+        item.innerHTML=`<a>${i+1}</a>`;
+        driver.appendChild(item);
     }
     
 }
+
+module.exports= {paginacion};
