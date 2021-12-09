@@ -9,12 +9,11 @@ var bodyParser = require('body-parser');
 
 var jsonParser = bodyParser.json();
 
- router.get('/ValorTiposDeDolarHoy', function(req, res) {
+ router.get('/valorTiposDeDolarHoy', function(req, res) {
    res.send(manipulacionDatos.obtenerDatosPaginaInicio());
 });
 
-router.post('/ValorTiposDeDolarHoy', jsonParser, (req, res) => {
-   console.log(req.body);
+router.post('/valorTiposDeDolarHoy', jsonParser, (req, res) => {
    const {id, nombre, venta, compra} = req.body;
    //Validación de datos
    if(!isNaN(id) && typeof(nombre)==='string' && !isNaN(venta) && !isNaN(compra) && venta>=0 && compra>=0){
@@ -24,59 +23,58 @@ router.post('/ValorTiposDeDolarHoy', jsonParser, (req, res) => {
    }
 });
 
-router.put('/ValorTiposDeDolarHoy', jsonParser, function(req, res) {
+router.put('/valorTiposDeDolarHoy', jsonParser, function(req, res) {
    const {id, nombre, venta, compra} = req.body;
+   //Validación de datos
    if(!isNaN(id) && typeof(nombre)==='string' && !isNaN(venta) && !isNaN(compra) && venta>=0 && compra>=0){
       let obj = manipulacionDatos.actualizarDatoPaginaInicio(id, nombre, venta, compra);
       if(obj != null){
          res.send(obj);
       }else{
-         res.sendStatus(404);
+         res.status(404).send('Dato no fue encontrado');
       }
    }else{
-      res.sendStatus(400);
+      res.status(400).send('Los datos no son correctos');
    }
 });
 
-router.get('/ValoresHistoricosDolar', function(req, res){
-   //Ruta no empieza con mayus
-   //librerias para validar - joi
+router.get('/valoresHistoricosDolar', function(req, res){
    const tipo = req.query.tipo;
    const cantidad=req.query.cantidad;
    const desde=req.query.desde;
    if(typeof(tipo)==='string' && !isNaN(cantidad) && !isNaN(desde)){
       res.send(manipulacionDatos.obtenerHistoricoCantidadDesde(tipo, cantidad, desde));
    }else{
-      res.sendStatus(400);
+      res.status(400).send('Los datos no son correctos');
    }
 });
 
-router.get('/ValoresHistoricosDolar/:nombreTipoDeDolar/:id', function(req, res){
+router.get('/valoresHistoricosDolar/:nombreTipoDeDolar/:id', function(req, res){
    let nombre = req.params.nombreTipoDeDolar;
    let id = req.params.id;
    if(typeof(nombre) === 'string' && !isNaN(id)){
       res.send(manipulacionDatos.obtenerDatoHistoricoConId(nombre, id));
    }else{
-      res.sendStatus(400);
+      res.status(400).send('Los datos no son correctos');
    }
 });
 
-router.get('/ValoresHistoricosDolar/:nombreTipoDeDolar/:fecha', function(req, res){
+router.get('/valoresHistoricosDolar/:nombreTipoDeDolar/:fecha', function(req, res){
    let nombre = req.params.nombreTipoDeDolar;
    let fecha = req.params.fecha;
    if(typeof(nombre) === 'string' && typeof(fecha) === 'string'){
       res.send(manipulacionDatos.obtenerDatoHistoricoConFecha(nombre, fecha));
    }else{
-      res.sendStatus(400);
+      res.status(400).send('Los datos no son correctos');
    }
 });
 
-router.get('/ValoresHistoricosDolar/:nombreTipoDeDolar', function(req, res){
+router.get('/valoresHistoricosDolar/:nombreTipoDeDolar', function(req, res){
    let nombre = req.params.nombreTipoDeDolar;
    if(typeof(nombre) === 'string' && nombreTipoDolar.find(element => element===nombre) ){
       res.send(manipulacionDatos.obtenerArchivoHistorico(nombre));
    }else{
-      res.sendStatus(400);
+      res.status(400).send('Los datos no son correctos');
    }
 });
 
@@ -87,22 +85,24 @@ router.get('/valoresHistoricosDolar/paginacion/:nombreTipoDeDolar/:numeroPagina/
    if(typeof(nombre) === 'string' && !isNaN(numeroPag)  && !isNaN(cantEntradas) && nombreTipoDolar.find(element => element===nombre) ){
       res.send(manipulacionDatos.obtenerHistoricoCantidadDesde(nombre, cantEntradas, (numeroPag-1)*cantEntradas));
    }else{
-      res.sendStatus(400);
+      res.status(400).send('Los datos no son correctos');
    }
 })
 
 router.get('/cantidadDatosHistoricosParaUnTipoDolar/:tipoDolar/:cantidadEntradas', function(req,res){
    let tipoDolar= req.params.tipoDolar;
    let cantEntradas= req.params.cantidadEntradas;
-   let resp=manipulacionDatos.obtenerCantidadPaginasTipoDolar(tipoDolar,cantEntradas);
-   console.log("api: "+resp);
-   res.send([{"cantidadPaginas":resp}]);
+   if(typeof(tipoDolar)=='string' && !isNaN(cantEntradas) && cantEntradas>=0){
+      let resp=manipulacionDatos.obtenerCantidadPaginasTipoDolar(tipoDolar,cantEntradas);
+      res.send([{"cantidadPaginas":resp}]);
+   }else{
+      res.status(400).send('Los datos no son correctos');
+   }
 })
 
 //Si la url no es válida...
  router.get('*', function(req, res){
-    //res.send('Error 404 - Sorry, this is an invalid URL.');
-    res.sendStatus(400);
+    res.status(404).send('Error 404 - Sorry, this is an invalid URL.');
  });
 
 module.exports = router;

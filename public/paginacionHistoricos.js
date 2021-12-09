@@ -14,7 +14,6 @@ function getDatos(nombreTipoDolarRequerido,numeroPag,cantEntradas){
         objeto.forEach(dolar=>{
             const row= document.createElement('tr');
             row.classList.add('border-bottom','border-3'); //Para estilos (bootstrap)
-            //row.classList.add('border-3');
             
             row.innerHTML+=`
                 <td>$${dolar.fecha}</td>
@@ -26,29 +25,25 @@ function getDatos(nombreTipoDolarRequerido,numeroPag,cantEntradas){
     );
 }
 
-
-
 function paginacion(tipoDolar) {
     const cantFilasAMostrar = 10;
     let cantPaginas = 0;
     fetch('http://localhost:3000/api/cantidadDatosHistoricosParaUnTipoDolar/' + tipoDolar + '/' + cantFilasAMostrar)
         .then(respuesta => respuesta.json())
         .then(objeto => {
-         cantPaginas = objeto[0].cantidadPaginas;
-            //console.log("paginacion: " + cantPaginas);
+         cantPaginas = objeto[0].cantidadPaginas; //cantPaginas depende de la cantidad de entradas en el json correspondiente
             
-            for (let i = 0; i < cantPaginas; i++) {
-                const item = document.createElement('li');
+            for (let i = 0; i < cantPaginas; i++) { //Para cada número de pág
+                const item = document.createElement('li'); //Creo list item
                 const indice = i + 1;
                 item.innerHTML = `<a id="${indice}" href="#">${indice}</a>`;
                 idsPaginas[i] = indice;
-                driver.appendChild(item);
-                document.getElementById(indice).onclick= function(){
+                driver.appendChild(item); //Agrego número a lista de páginas
+                document.getElementById(indice).onclick= function(){ //Cuando se clickea una página...
                     limpiarTabla();
                     getDatos(tipoDolar,indice,cantFilasAMostrar);
                 };
             }
-            //console.log(idsPaginas);
         });
 }
 

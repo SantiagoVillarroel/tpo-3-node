@@ -1,5 +1,5 @@
+//Require para obtener datos
 const datosPaginaInicio =  require('./datosPaginaInicio.json')
-
 const indiceDeTiposDeDolarValorHistorico= require('./historico_JSON/indiceValoresHistoricosTipoDolar.json');
 
 function obtenerDatosPaginaInicio(){
@@ -46,8 +46,9 @@ function actualizarDatoPaginaInicio(id, nombre, venta, compra){
 }
 
 function obtenerHistoricoCantidadDesde(tipo, cantidad, desde){
+    //Obtengo info correspondiente a tipo de dólar
     const archivoHistorico = obtenerArchivoHistorico(tipo);
-    return archivoHistorico.slice(desde, parseInt(desde)+parseInt(cantidad));
+    return archivoHistorico.slice(desde, parseInt(desde)+parseInt(cantidad)); //Realiza slice y devuelve nuevo arreglo
 }
 
 function obtenerDatoHistoricoConId(tipo, id){
@@ -63,9 +64,8 @@ function obtenerDatoHistoricoConFecha(tipo, id){
 }
 
 function obtenerCantidadPaginasTipoDolar(tipo, cantidadEntradasPorPagina){
-    const archivoHistorico = obtenerArchivoHistorico(tipo);
-    let resp=(Object.keys(archivoHistorico).length) / cantidadEntradasPorPagina;
-    console.log("....."+resp);
+    const archivoHistorico = obtenerArchivoHistorico(tipo); //Obtengo info correspondiente a tipo de dólar
+    let resp=(Object.keys(archivoHistorico).length) / cantidadEntradasPorPagina; //Divido cantidad de datos por tamaño de página
     return (parseInt(resp))+1;
 }
 

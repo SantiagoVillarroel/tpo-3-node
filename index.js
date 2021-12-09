@@ -1,12 +1,7 @@
 var express = require('express');
 var app = express();
 
-  
-
-
 app.use(express.static('public'));
-
-
 
 var api = require('./api.js');
 
@@ -16,6 +11,4 @@ const port = process.env.PORT || 3000;
 
 app.listen(port,()=>console.log("Server on Port ",port));
 
-//Comment de prueba PRUEBA CLONE
-
-//const y let, no var - variable de entorno nro de puerto
+//const y let, no var
