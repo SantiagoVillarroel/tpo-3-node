@@ -64,7 +64,9 @@ function obtenerDatoHistoricoConFecha(tipo, id){
 
 function obtenerCantidadPaginasTipoDolar(tipo, cantidadEntradasPorPagina){
     const archivoHistorico = obtenerArchivoHistorico(tipo);
-    return ((Object.keys(archivoHistorico).length) / cantidadEntradasPorPagina)+1;
+    let resp=(Object.keys(archivoHistorico).length) / cantidadEntradasPorPagina;
+    console.log("....."+resp);
+    return (parseInt(resp))+1;
 }
 
 module.exports={
