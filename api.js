@@ -84,7 +84,7 @@ router.get('/valoresHistoricosDolar/pag/:nombreTipoDeDolar/:numeroPagina/:cantid
    let nombre = req.params.nombreTipoDeDolar;
    let numeroPag = req.params.numeroPagina;
    let cantEntradas = req.params.cantidadEntradas;
-   if(typeof(nombre) === 'string' && !NaN(numeroPag)  && !NaN(cantEntradas) && nombreTipoDolar.find(element => element===nombre) ){
+   if(typeof(nombre) === 'string' && !isNaN(numeroPag)  && !isNaN(cantEntradas) && nombreTipoDolar.find(element => element===nombre) ){
       res.send(manipulacionDatos.obtenerHistoricoCantidadDesde(nombre, cantEntradas, (numeroPag-1)*cantEntradas));
    }else{
       res.sendStatus(400);
