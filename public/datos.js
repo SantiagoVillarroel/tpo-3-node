@@ -3,7 +3,7 @@ const tabla=document.querySelector("#tablaPrecios tbody");
 
 
 function getDatos(){
-    fetch('http://localhost:3000/api/valorTiposDeDolarHoy')
+    fetch('https://localhost:3000/api/valorTiposDeDolarHoy')
     .then(respuesta => respuesta.json()) //indicamos el formato en el que se desea obtener la informacion
     .then(objeto =>{
         console.log(objeto.message);
