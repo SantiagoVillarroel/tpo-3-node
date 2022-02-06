@@ -8,7 +8,7 @@ function limpiarTabla(){
 }
 
 function getDatos(nombreTipoDolarRequerido,numeroPag,cantEntradas){
-    fetch('https://localhost:3000/api/valoresHistoricosDolar/paginacion/'+nombreTipoDolarRequerido+'/'+numeroPag+'/'+cantEntradas)
+    fetch('http://localhost:3001/api/valoresHistoricosDolar/paginacion/'+nombreTipoDolarRequerido+'/'+numeroPag+'/'+cantEntradas)
     .then(respuesta => respuesta.json()) //indicamos el formato en el que se desea obtener la informacion
     .then(objeto => 
         objeto.forEach(dolar=>{
@@ -28,7 +28,7 @@ function getDatos(nombreTipoDolarRequerido,numeroPag,cantEntradas){
 function paginacion(tipoDolar) {
     const cantFilasAMostrar = 10;
     let cantPaginas = 0;
-    fetch('https://localhost:3000/api/cantidadDatosHistoricosParaUnTipoDolar/' + tipoDolar + '/' + cantFilasAMostrar)
+    fetch('http://localhost:3001/api/cantidadDatosHistoricosParaUnTipoDolar/' + tipoDolar + '/' + cantFilasAMostrar)
         .then(respuesta => respuesta.json())
         .then(objeto => {
          cantPaginas = objeto[0].cantidadPaginas; //cantPaginas depende de la cantidad de entradas en el json correspondiente
