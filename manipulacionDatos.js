@@ -49,7 +49,7 @@ function obtenerHistoricoCantidadDesde(tipo, cantidad, desde){
     //Obtengo info correspondiente a tipo de dólar
     const archivoHistorico = obtenerArchivoHistorico(tipo);
     return archivoHistorico.slice(desde, parseInt(desde)+parseInt(cantidad)); //Realiza slice y devuelve nuevo arreglo
-}
+}//message
 
 function obtenerDatoHistoricoConId(tipo, id){
     const archivoHistorico = obtenerArchivoHistorico(tipo);
