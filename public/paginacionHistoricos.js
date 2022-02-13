@@ -11,7 +11,7 @@ function getDatos(nombreTipoDolarRequerido,numeroPag,cantEntradas){
     fetch('http://localhost:3001/api/valoresHistoricosDolar/paginacion/'+nombreTipoDolarRequerido+'/'+numeroPag+'/'+cantEntradas)
     .then(respuesta => respuesta.json()) //indicamos el formato en el que se desea obtener la informacion
     .then(objeto => 
-        objeto.forEach(dolar=>{
+        objeto.message.forEach(dolar=>{
             const row= document.createElement('tr');
             row.classList.add('border-bottom','border-3'); //Para estilos (bootstrap)
             
