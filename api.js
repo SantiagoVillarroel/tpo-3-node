@@ -83,7 +83,10 @@ router.get('/valoresHistoricosDolar/paginacion/:nombreTipoDeDolar/:numeroPagina/
    let numeroPag = req.params.numeroPagina;
    let cantEntradas = req.params.cantidadEntradas;
    if(typeof(nombre) === 'string' && !isNaN(numeroPag)  && !isNaN(cantEntradas) && nombreTipoDolar.find(element => element===nombre) ){
-      res.send(manipulacionDatos.obtenerHistoricoCantidadDesde(nombre, cantEntradas, (numeroPag-1)*cantEntradas));
+      res.send({
+         "message":
+         manipulacionDatos.obtenerHistoricoCantidadDesde(nombre, cantEntradas, (numeroPag-1)*cantEntradas)
+      });
    }else{
       res.status(400).send('Los datos no son correctos');
    }
