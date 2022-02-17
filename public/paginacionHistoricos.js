@@ -31,8 +31,8 @@ function paginacion(tipoDolar) {
     fetch('http://localhost:3001/api/cantidadDatosHistoricosParaUnTipoDolar/' + tipoDolar + '/' + cantFilasAMostrar)
         .then(respuesta => respuesta.json())
         .then(objeto => {
-         cantPaginas = objeto[0].cantidadPaginas; //cantPaginas depende de la cantidad de entradas en el json correspondiente
-            
+         cantPaginas = objeto.message[0].cantidadPaginas; //cantPaginas depende de la cantidad de entradas en el json correspondiente
+            console.log("holaaaa... "+cantPaginas);
             for (let i = 0; i < cantPaginas; i++) { //Para cada número de pág
                 const item = document.createElement('li'); //Creo list item
                 const indice = i + 1;

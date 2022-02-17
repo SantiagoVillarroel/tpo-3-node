@@ -97,7 +97,7 @@ router.get('/cantidadDatosHistoricosParaUnTipoDolar/:tipoDolar/:cantidadEntradas
    let cantEntradas= req.params.cantidadEntradas;
    if(typeof(tipoDolar)=='string' && !isNaN(cantEntradas) && cantEntradas>=0){
       let resp=manipulacionDatos.obtenerCantidadPaginasTipoDolar(tipoDolar,cantEntradas);
-      res.send([{"cantidadPaginas":resp}]);
+      res.send({"message":[{"cantidadPaginas":resp}]});
    }else{
       res.status(400).send('Los datos no son correctos');
    }
