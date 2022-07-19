@@ -4,8 +4,6 @@ const http = require('http')
 const fs = require('fs')
 var app = express();
 
-
-
 app.use(express.static('public'));
 
 var api = require('./api.js');
@@ -28,8 +26,5 @@ const serverHTTP = http.createServer(app)
 .listen(port2, () => {
     console.log('http server running at ' + port2)
 })
-
-//app.listen(port,()=>console.log("Server on Port ",port));
-//https.createServer(options, app).listen(port)
 
 //const y let, no var

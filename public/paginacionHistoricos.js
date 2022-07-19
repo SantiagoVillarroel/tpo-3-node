@@ -1,4 +1,3 @@
-
 const driver = document.querySelector("#listaPaginas");
 
 let idsPaginas = [];

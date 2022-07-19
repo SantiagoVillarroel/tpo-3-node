@@ -1,4 +1,3 @@
-const json='./datos.json';
 const tabla=document.querySelector("#tablaPrecios tbody");
 
 
