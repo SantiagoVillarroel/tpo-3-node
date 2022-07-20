@@ -45,14 +45,16 @@ function crearDatoHistorico(tipo, fecha, venta, compra){
     let datosHistoricos = datos.message.find(elem => {
         return elem.nombre.toLowerCase() === tipo;
     });
-    let cantElementos = datosHistoricos.length;
+    let cantElementos = datosHistoricos.datos.length;
     let nuevoElemento = {
         "id": cantElementos+1,
         "fecha": fecha,
         "venta": venta,
         "compra": compra
     }
-    datosHistoricos.push(nuevoElemento);
+    datosHistoricos.datos.push(nuevoElemento);
+    console.log(datosHistoricos);
+    return nuevoElemento;
 }
 
 /*function obtenerArchivoHistorico(nombreDeTipoDolar){
