@@ -23,6 +23,7 @@ router.post('/valorTiposDeDolarHoy', jsonParser, (req, res) => {
    }
 });
 
+
 router.put('/valorTiposDeDolarHoy', jsonParser, function(req, res) {
    const {id, nombre, venta, compra} = req.body;
    //Validación de datos
@@ -33,6 +34,16 @@ router.put('/valorTiposDeDolarHoy', jsonParser, function(req, res) {
       }else{
          res.status(404).send('Dato no fue encontrado');
       }
+   }else{
+      res.status(400).send('Los datos no son correctos');
+   }
+});
+
+router.post('/valoresHistoricosDolar', jsonParser, (req, res) => {
+   const {tipo, fecha, venta, compra} = req.body;
+   //Validación de datos
+   if(typeof(tipo)==='string' && !isNaN(venta) && !isNaN(compra) && venta>=0 && compra>=0){
+      res.send(manipulacionDatos.crearDatoHistorico(tipo, fecha, venta, compra));
    }else{
       res.status(400).send('Los datos no son correctos');
    }

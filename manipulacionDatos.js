@@ -41,6 +41,20 @@ function actualizarDatoPaginaInicio(id, nombre, venta, compra){
     return res;
 }
 
+function crearDatoHistorico(tipo, fecha, venta, compra){
+    let datosHistoricos = datos.message.find(elem => {
+        return elem.nombre.toLowerCase() === tipo;
+    });
+    let cantElementos = datosHistoricos.length;
+    let nuevoElemento = {
+        "id": cantElementos+1,
+        "fecha": fecha,
+        "venta": venta,
+        "compra": compra
+    }
+    datosHistoricos.push(nuevoElemento);
+}
+
 /*function obtenerArchivoHistorico(nombreDeTipoDolar){
     //Busco tipo de dólar en indice
     let tipo = indiceDeTiposDeDolarValorHistorico.find(element => {
@@ -85,6 +99,7 @@ module.exports={
     obtenerDatosHoy,
     crearDatoPaginaInicio,
     actualizarDatoPaginaInicio,
+    crearDatoHistorico,
     obtenerArchivoHistorico,
     obtenerHistoricoCantidadDesde,
     /*obtenerDatoHistoricoConId,
