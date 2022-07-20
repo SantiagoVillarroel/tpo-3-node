@@ -1,10 +1,15 @@
 //Require para obtener datos
-const datosPaginaInicio =  require('./datosPaginaInicio.json')
-const indiceDeTiposDeDolarValorHistorico= require('./historico_JSON/indiceValoresHistoricosTipoDolar.json');
+const datos =  require('./datos.json')
 
-function obtenerDatosPaginaInicio(){
-    //Devuelve JSON correspondiente
-    return datosPaginaInicio;
+function obtenerDatosHoy(){
+    let datosHoy = {
+        "message": []
+    };
+    datos.message.forEach((elem, i) => datosHoy.message.push({
+        "nombre": elem.nombre,
+        "dato": elem.datos[0]
+    }));//Tener campo aparte en datos.json para valor de hoy?
+    return datosHoy;
 }
 
 function crearDatoPaginaInicio(id, nombre, venta, compra){
@@ -36,22 +41,29 @@ function actualizarDatoPaginaInicio(id, nombre, venta, compra){
     return res;
 }
 
- function obtenerArchivoHistorico(nombreDeTipoDolar){
+/*function obtenerArchivoHistorico(nombreDeTipoDolar){
     //Busco tipo de dólar en indice
     let tipo = indiceDeTiposDeDolarValorHistorico.find(element => {
        return element.tipoDolar === nombreDeTipoDolar;
      }); 
     nombreArchivoHistorico = tipo.nombreArchivo; //Obtengo nombre del archivo JSON correspondiente al tipo de dólar
     return require('./historico_JSON/'+nombreArchivoHistorico);
+}*/
+
+function obtenerArchivoHistorico(nombreDeTipoDolar){
+    let datosHistoricos = datos.message.find(elem => {
+        return elem.nombre.toLowerCase() === nombreDeTipoDolar;
+    });
+    return datosHistoricos;
 }
 
 function obtenerHistoricoCantidadDesde(tipo, cantidad, desde){
     //Obtengo info correspondiente a tipo de dólar
     const archivoHistorico = obtenerArchivoHistorico(tipo);
-    return archivoHistorico.slice(desde, parseInt(desde)+parseInt(cantidad)); //Realiza slice y devuelve nuevo arreglo
+    return archivoHistorico.datos.slice(desde, parseInt(desde)+parseInt(cantidad)); //Realiza slice y devuelve nuevo arreglo
 }//message
 
-function obtenerDatoHistoricoConId(tipo, id){
+/*function obtenerDatoHistoricoConId(tipo, id){
     const archivoHistorico = obtenerArchivoHistorico(tipo);
     let dato = archivoHistorico.find(elem => elem.id===id);
     return dato;
@@ -61,21 +73,21 @@ function obtenerDatoHistoricoConFecha(tipo, id){
     const archivoHistorico = obtenerArchivoHistorico(tipo);
     let dato = archivoHistorico.find(elem => elem.fecha===fecha);
     return dato;
-}
+}*/
 
 function obtenerCantidadPaginasTipoDolar(tipo, cantidadEntradasPorPagina){
     const archivoHistorico = obtenerArchivoHistorico(tipo); //Obtengo info correspondiente a tipo de dólar
-    let resp=(Object.keys(archivoHistorico).length) / cantidadEntradasPorPagina; //Divido cantidad de datos por tamaño de página
+    let resp=(Object.keys(archivoHistorico.datos).length) / cantidadEntradasPorPagina; //Divido cantidad de datos por tamaño de página
     return (parseInt(resp))+1;
 }
 
 module.exports={
-    obtenerDatosPaginaInicio,
+    obtenerDatosHoy,
     crearDatoPaginaInicio,
     actualizarDatoPaginaInicio,
     obtenerArchivoHistorico,
     obtenerHistoricoCantidadDesde,
-    obtenerDatoHistoricoConId,
-    obtenerDatoHistoricoConFecha,
+    /*obtenerDatoHistoricoConId,
+    obtenerDatoHistoricoConFecha,*/
     obtenerCantidadPaginasTipoDolar
 }

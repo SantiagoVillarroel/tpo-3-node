@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
  router.get('/valorTiposDeDolarHoy', function(req, res) {
-   res.send(manipulacionDatos.obtenerDatosPaginaInicio());
+   res.send(manipulacionDatos.obtenerDatosHoy());
 });
 
 router.post('/valorTiposDeDolarHoy', jsonParser, (req, res) => {
@@ -49,7 +49,7 @@ router.get('/valoresHistoricosDolar', function(req, res){
    }
 });
 
-router.get('/valoresHistoricosDolar/:nombreTipoDeDolar/:id', function(req, res){
+/*router.get('/valoresHistoricosDolar/:nombreTipoDeDolar/:id', function(req, res){
    let nombre = req.params.nombreTipoDeDolar;
    let id = req.params.id;
    if(typeof(nombre) === 'string' && !isNaN(id)){
@@ -67,7 +67,7 @@ router.get('/valoresHistoricosDolar/:nombreTipoDeDolar/:fecha', function(req, re
    }else{
       res.status(400).send('Los datos no son correctos');
    }
-});
+});*/
 
 router.get('/valoresHistoricosDolar/:nombreTipoDeDolar', function(req, res){
    let nombre = req.params.nombreTipoDeDolar;
