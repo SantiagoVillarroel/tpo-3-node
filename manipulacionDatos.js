@@ -6,8 +6,11 @@ function obtenerDatosHoy(){
         "message": []
     };
     datos.message.forEach((elem, i) => datosHoy.message.push({
-        "nombre": elem.nombre,
-        "dato": elem.datos[0]
+        "id": elem.nombre.toLowerCase() + 0,
+        "tipo": elem.nombre,
+        "fecha": elem.datos[0].fecha,
+        "venta": elem.datos[0].venta,
+        "compra": elem.datos[0].compra
     }));//Tener campo aparte en datos.json para valor de hoy?
     return datosHoy;
 }
@@ -47,12 +50,16 @@ function crearDatoHistorico(tipo, fecha, venta, compra){
     });
     let cantElementos = datosHistoricos.datos.length;
     let nuevoElemento = {
-        "id": cantElementos+1,
+        "id": tipo + cantElementos,
+        "tipo": tipo,
         "fecha": fecha,
         "venta": venta,
         "compra": compra
     }
     datosHistoricos.datos.push(nuevoElemento);
+    datosHistoricos.datos.sort((a, b) => {
+        return +new Date(b.fecha) - +new Date(a.fecha)
+    })
     console.log(datosHistoricos);
     return nuevoElemento;
 }
@@ -68,15 +75,31 @@ function crearDatoHistorico(tipo, fecha, venta, compra){
 
 function obtenerArchivoHistorico(nombreDeTipoDolar){
     let datosHistoricos = datos.message.find(elem => {
-        return elem.nombre.toLowerCase() === nombreDeTipoDolar;
+        return elem.nombre.toLowerCase() === nombreDeTipoDolar.toLowerCase();
     });
-    return datosHistoricos;
+    let datosRes = {
+        "message": []
+    };
+    let nombre = datosHistoricos.nombre
+    datosHistoricos.datos.forEach((elem, i) => {
+        datosRes.message.push({
+            "id": nombre.toLowerCase() + i,
+            "tipo": nombre,
+            "fecha": elem.fecha,
+            "venta": elem.venta,
+            "compra": elem.compra
+        })
+    })
+    return datosRes;
 }
 
 function obtenerHistoricoCantidadDesde(tipo, cantidad, desde){
     //Obtengo info correspondiente a tipo de dólar
     const archivoHistorico = obtenerArchivoHistorico(tipo);
-    return archivoHistorico.datos.slice(desde, parseInt(desde)+parseInt(cantidad)); //Realiza slice y devuelve nuevo arreglo
+    console.log(tipo, cantidad, desde)
+    const res = archivoHistorico.message.slice(desde, parseInt(desde)+parseInt(cantidad));
+    console.log(res)
+    return res //Realiza slice y devuelve nuevo arreglo
 }//message
 
 /*function obtenerDatoHistoricoConId(tipo, id){
