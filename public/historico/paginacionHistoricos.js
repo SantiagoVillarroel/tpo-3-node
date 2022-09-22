@@ -27,7 +27,7 @@ function getDatos(nombreTipoDolarRequerido,numeroPag,cantEntradas){
 function paginacion(tipoDolar) {
     const cantFilasAMostrar = 10;
     let cantPaginas = 0;
-    fetch('http://localhost:3001/api/cantidadDatosHistoricosParaUnTipoDolar/' + tipoDolar + '/' + cantFilasAMostrar)
+    fetch('http://localhost:3001/api/cantidadPaginasParaUnTipoDolar/' + tipoDolar + '/' + cantFilasAMostrar)
         .then(respuesta => respuesta.json())
         .then(objeto => {
          cantPaginas = objeto.message[0].cantidadPaginas; //cantPaginas depende de la cantidad de entradas en el json correspondiente
