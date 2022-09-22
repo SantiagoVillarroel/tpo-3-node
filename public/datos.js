@@ -12,8 +12,8 @@ function getDatos(){
             //Agrego info a innerHTML
             row.innerHTML+=` 
                 <td>${dolar.nombre}</td>
-                <td>$${dolar.venta}</td>
-                <td>$${dolar.compra}</td>
+                <td>$${dolar.dato.venta}</td>
+                <td>$${dolar.dato.compra}</td>
             `;
             tabla.appendChild(row); //Concateno nueva fila
         }) }   

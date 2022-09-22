@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 
  router.get('/valorTiposDeDolarHoy', function(req, res) {
-   res.send(manipulacionDatos.obtenerDatosPaginaInicio());
+   res.send(manipulacionDatos.obtenerDatosHoy());
 });
 
 router.post('/valorTiposDeDolarHoy', jsonParser, (req, res) => {
@@ -22,6 +22,7 @@ router.post('/valorTiposDeDolarHoy', jsonParser, (req, res) => {
       res.status(400).send('Los datos no son correctos');
    }
 });
+
 
 router.put('/valorTiposDeDolarHoy', jsonParser, function(req, res) {
    const {id, nombre, venta, compra} = req.body;
@@ -38,6 +39,16 @@ router.put('/valorTiposDeDolarHoy', jsonParser, function(req, res) {
    }
 });
 
+router.post('/valoresHistoricosDolar', jsonParser, (req, res) => {
+   const {tipo, fecha, venta, compra} = req.body;
+   //Validación de datos
+   if(typeof(tipo)==='string' && !isNaN(venta) && !isNaN(compra) && venta>=0 && compra>=0){
+      res.send(manipulacionDatos.crearDatoHistorico(tipo, fecha, venta, compra));
+   }else{
+      res.status(400).send('Los datos no son correctos');
+   }
+});
+
 router.get('/valoresHistoricosDolar', function(req, res){
    const tipo = req.query.tipo;
    const cantidad=req.query.cantidad;
@@ -49,7 +60,7 @@ router.get('/valoresHistoricosDolar', function(req, res){
    }
 });
 
-router.get('/valoresHistoricosDolar/:nombreTipoDeDolar/:id', function(req, res){
+/*router.get('/valoresHistoricosDolar/:nombreTipoDeDolar/:id', function(req, res){
    let nombre = req.params.nombreTipoDeDolar;
    let id = req.params.id;
    if(typeof(nombre) === 'string' && !isNaN(id)){
@@ -67,7 +78,7 @@ router.get('/valoresHistoricosDolar/:nombreTipoDeDolar/:fecha', function(req, re
    }else{
       res.status(400).send('Los datos no son correctos');
    }
-});
+});*/
 
 router.get('/valoresHistoricosDolar/:nombreTipoDeDolar', function(req, res){
    let nombre = req.params.nombreTipoDeDolar;
